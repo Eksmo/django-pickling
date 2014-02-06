@@ -13,11 +13,13 @@ def attnames(cls, _cache={}):
         _cache[cls] = [f.attname for f in cls._meta.fields]
         return _cache[cls]
 
+
 def model_unpickle(cls, data):
     obj = cls.__new__(cls)
     obj.__dict__.update(izip(attnames(cls), data))
     return obj
 model_unpickle.__safe_for_unpickle__ = True
+
 
 def Model__reduce__(self):
     if self._deferred:
@@ -26,10 +28,9 @@ def Model__reduce__(self):
         cls = self.__class__
         data = self.__dict__.copy()
 
-        vector = map(data.pop, attnames(cls))
+        vactor = [data.pop(name, None) for name in attnames(cls)]
         return (model_unpickle, (cls, vector), data)
 
 if Model.__reduce__ != Model__reduce__:
     original_Model__reduce__ = Model.__reduce__
     Model.__reduce__ = Model__reduce__
-
