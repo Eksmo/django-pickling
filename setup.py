@@ -12,7 +12,6 @@ setup(
     license='BSD',
 
     py_modules=['django_pickling'],
-    install_requires=['django'],
 
     classifiers=[
         'Development Status :: 4 - Beta',
