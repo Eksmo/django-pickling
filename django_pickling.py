@@ -28,7 +28,7 @@ def Model__reduce__(self):
         cls = self.__class__
         data = self.__dict__.copy()
 
-        vactor = [data.pop(name, None) for name in attnames(cls)]
+        vector = [data.pop(name, None) for name in attnames(cls)]
         return (model_unpickle, (cls, vector), data)
 
 if Model.__reduce__ != Model__reduce__:
